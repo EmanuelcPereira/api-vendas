@@ -22,7 +22,7 @@ export default class EtherealMail {
     const message = await transporter.sendMail({
       from: 'equipe@apivendas.com.br',
       to,
-      subject: 'Teste',
+      subject: 'Recuperação de senha',
       text: body,
     });
 
