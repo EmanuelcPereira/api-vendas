@@ -13,6 +13,6 @@ routes.use('/users', usersRouter);
 routes.use('/sessions', sessionRouter);
 routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
-routes.use('customers', customersRouter);
+routes.use('/customers', customersRouter);
 
 export default routes;
