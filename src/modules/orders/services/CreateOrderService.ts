@@ -68,6 +68,15 @@ class CreateOrderService {
       products: serializedProducts,
     });
 
+    const { order_products } = order;
+
+    const updatedProductQuantity = order_products.map(product => ({
+      id: product.product_id,
+      quantity: existsProducts.filter(p => p.id)[0].quantity - product.quantity,
+    }));
+
+    await productsRepository.save(updatedProductQuantity);
+
     return order;
   }
 }
