@@ -52,6 +52,7 @@
     "redis": "^3.1.1",
     "reflect-metadata": "^0.1.13",
     "sqlite": "^4.0.21",
+    "tsyringe": "^4.5.0",
     "typeorm": "^0.2.32",
     "typeorm-pagination": "^2.0.1"
   }
