@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import Customer from '../entities/Customer';
 import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository';
 import { ICreateCustomer } from '@modules/customers/domain/models/ICreateCustomer';
+import { ICustomerPaginate } from '../../../domain/models/ICustomerPaginate';
 
 class CustomersRepository implements ICustomersRepository {
   private ormRepository: Repository<Customer>;
@@ -24,6 +25,10 @@ class CustomersRepository implements ICustomersRepository {
     await this.ormRepository.save(customer);
 
     return customer;
+  }
+
+  public async remove(customer: Customer): Promise<void> {
+    await this.ormRepository.remove(customer);
   }
 
   public async findByName(name: string): Promise<Customer | undefined> {
@@ -54,6 +59,12 @@ class CustomersRepository implements ICustomersRepository {
     });
 
     return customer;
+  }
+
+  public async findAllPaginate(): Promise<ICustomerPaginate> {
+    const customers = await this.ormRepository.createQueryBuilder().paginate();
+
+    return customers as ICustomerPaginate;
   }
 }
 
