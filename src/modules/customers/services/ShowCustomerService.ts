@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
+import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 import Customer from '../infra/typeorm/entities/Customer';
-import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
 interface IRequest {
   id: string;
 }
@@ -10,7 +10,7 @@ interface IRequest {
 class ShowCustomerService {
   constructor(
     @inject('customersRepository')
-    private customersRepository: CustomersRepository,
+    private customersRepository: ICustomersRepository,
   ) {}
 
   public async execute({ id }: IRequest): Promise<Customer> {

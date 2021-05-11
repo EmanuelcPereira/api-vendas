@@ -1,12 +1,15 @@
-import { getCustomRepository } from 'typeorm';
 import Product from '../infra/typeorm/entities/Product';
-import ProductRepository from '../infra/typeorm/Repositories/ProductsRepository';
 import RedisCache from '@shared/cache/RedisCache';
+import { inject, injectable } from 'tsyringe';
+import { IProductsRepository } from '../domain/repositories/IProductsRepository';
 
+@injectable()
 class ListProductService {
+  constructor(
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
+  ) {}
   public async execute(): Promise<Product[]> {
-    const productsRepository = getCustomRepository(ProductRepository);
-
     const redisCache = new RedisCache();
 
     let products = await redisCache.recover<Product[]>(
@@ -14,7 +17,7 @@ class ListProductService {
     );
 
     if (!products) {
-      products = await productsRepository.find();
+      products = await this.productsRepository.find();
 
       await redisCache.save('api-vendas-PRODUCT_LIST', products);
     }
