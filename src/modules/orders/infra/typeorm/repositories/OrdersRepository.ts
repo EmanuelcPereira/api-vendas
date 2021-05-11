@@ -5,10 +5,17 @@ import Order from '../entities/Order';
 
 class OrdersRepository implements IOrdersRepository {
   constructor(private ormRepository: Repository<Order>) {}
+
   public async findById(id: string): Promise<Order | undefined> {
     const order = this.ormRepository.findOne(id, {
       relations: ['order_products', 'customer'],
     });
+
+    return order;
+  }
+
+  public async find(): Promise<Order[]> {
+    const order = await this.ormRepository.find();
 
     return order;
   }

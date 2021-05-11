@@ -3,6 +3,7 @@ import { IFindProducts } from '@modules/products/domain/models/IFindProducts';
 import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository';
 import Product from '../entities/Product';
 import { ICreateProduct } from '../../../domain/models/ICreateProduct';
+import { IUpdateProducts } from '@modules/products/domain/models/IUpdateProducts';
 
 class ProductRepository implements IProductsRepository {
   constructor(private ormRepository: Repository<Product>) {}
@@ -54,6 +55,10 @@ class ProductRepository implements IProductsRepository {
     await this.ormRepository.save(product);
 
     return product;
+  }
+
+  public async updateStock(products: IUpdateProducts[]): Promise<void> {
+    await this.ormRepository.save(products);
   }
 
   public async save(product: Product): Promise<Product> {

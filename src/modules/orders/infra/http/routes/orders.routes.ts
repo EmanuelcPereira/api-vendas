@@ -8,6 +8,8 @@ const ordersController = new OrdersController();
 
 ordersRouter.use(isAuthenticated);
 
+ordersRouter.get('/', ordersController.list);
+
 ordersRouter.get(
   '/:id',
   celebrate({

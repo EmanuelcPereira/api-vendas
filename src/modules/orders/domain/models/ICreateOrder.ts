@@ -1,7 +1,7 @@
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
-import { IProduct } from './IProduct';
+import { ICustomer } from '@modules/customers/domain/models/ICustomer';
+import { ICreateOrderProduct } from './ICreateOrderProduct';
 
 export interface ICreateOrder {
-  customer: Customer;
-  products: IProduct[];
+  customer: ICustomer;
+  products: ICreateOrderProduct[];
 }

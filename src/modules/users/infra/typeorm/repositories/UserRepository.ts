@@ -1,10 +1,19 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 import User from '../entities/User';
+import { ICreateUser } from '../../../domain/models/ICreateUser';
 
-@EntityRepository(User)
-class UserRepository extends Repository<User> {
+class UserRepository implements IUsersRepository {
+  constructor(private ormRepository: Repository<User>) {}
+
+  public async findAll(): Promise<User[]> {
+    const users = await this.ormRepository.find();
+
+    return users;
+  }
+
   public async findByName(name: string): Promise<User | undefined> {
-    const user = await this.findOne({
+    const user = await this.ormRepository.findOne({
       where: {
         name,
       },
@@ -14,7 +23,7 @@ class UserRepository extends Repository<User> {
   }
 
   public async findById(id: string): Promise<User | undefined> {
-    const user = await this.findOne({
+    const user = await this.ormRepository.findOne({
       where: {
         id,
       },
@@ -24,11 +33,29 @@ class UserRepository extends Repository<User> {
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    const user = await this.findOne({
+    const user = await this.ormRepository.findOne({
       where: {
         email,
       },
     });
+
+    return user;
+  }
+
+  public async create({ name, email, password }: ICreateUser): Promise<User> {
+    const user = this.ormRepository.create({
+      name,
+      email,
+      password,
+    });
+
+    await this.ormRepository.save(user);
+
+    return user;
+  }
+
+  public async save(user: User): Promise<User> {
+    await this.ormRepository.save(user);
 
     return user;
   }
