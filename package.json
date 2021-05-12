@@ -16,6 +16,7 @@
     "@types/nodemailer": "^6.4.1",
     "@types/redis": "^2.8.28",
     "@types/sqlite3": "^3.1.7",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.23.0",
@@ -57,6 +58,7 @@
     "sqlite": "^4.0.21",
     "tsyringe": "^4.5.0",
     "typeorm": "^0.2.32",
-    "typeorm-pagination": "^2.0.1"
+    "typeorm-pagination": "^2.0.1",
+    "uuid": "^8.3.2"
   }
 }
